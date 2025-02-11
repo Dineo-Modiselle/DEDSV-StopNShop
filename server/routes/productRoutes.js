@@ -1,10 +1,18 @@
 import express from 'express';
-import { createProduct, getProducts } from '../controllers/productController.js';
-import { authenticateToken } from '../middleware/authMiddleware.js';
+import { sampleProducts } from '../models/Product.js';
 
 const router = express.Router();
 
-router.post('/', authenticateToken, createProduct);
-router.get('/', getProducts);
+router.get('/', (req, res) => {
+  res.json(sampleProducts);
+});
+
+router.get('/:id', (req, res) => {
+  const product = sampleProducts.find(p => p._id === req.params.id);
+  if (!product) {
+    return res.status(404).json({ message: 'Product not found' });
+  }
+  res.json(product);
+});
 
 export default router;

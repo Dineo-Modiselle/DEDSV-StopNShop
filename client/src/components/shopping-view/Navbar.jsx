@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Menu, Search, ShoppingBag, User, X } from 'lucide-react';
 
@@ -282,3 +283,4 @@ const NavBar = () => {
 };
 
 export default NavBar;
+

@@ -25,7 +25,7 @@ app.use('/api/products', productRoutes);
 app.use('/api/orders', orderRoutes);
 
 // Database connection
-connectDB();
+// connectDB();
 
 app.listen(PORT, () => {
   console.log(chalk.bold.bgYellow(`Server listening on port ${PORT}`));
