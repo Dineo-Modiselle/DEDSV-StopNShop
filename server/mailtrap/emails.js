@@ -98,7 +98,7 @@ export const sendOrderConfirmation = async (email, _id) => {
           ${_id
             .map(
               (item) =>
-                `<li>${item.name} - Quantity: ${item.quantity} - Price: $${item.price} - Shipping:${item.shippingAddress }</li>`
+                `<li>${item.name} - Quantity: ${item.quantity} - Price: $${item.price} </li>`
             )
             .join("")}
         </ul>
