@@ -1,6 +1,5 @@
-import * as Mailtrap from 'mailtrap';
+import mailtrap from 'mailtrap';
 import { MailtrapClient } from 'mailtrap';
-import { MailtrapClientOptions } from 'mailtrap/dist/types/mailtrap-client';
 import dotenv from "dotenv";
 
 dotenv.config();
