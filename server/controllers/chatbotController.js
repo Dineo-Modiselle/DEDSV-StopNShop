@@ -5,7 +5,7 @@ export const handleChatbotMessage = async (req, res) => {
 
   const responses = {
     greeting: "Hello! How can I assist you today?",
-    shipping: "We offer free shipping on orders over $50!",
+    shipping: "We offer free shipping on orders over $10000!",
     returns: "You can return items within 30 days of purchase.",
     payment: "We accept Visa, MasterCard, and PayPal.",
     contact: "You can contact us at DEDSV@STOPNSHOP.com",

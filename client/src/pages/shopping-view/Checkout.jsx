@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import { useCart } from "../../context/CartContext";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import toast from "react-hot-toast";
+
 
 function Checkout() {
   const { cart, getCartTotal } = useCart();
@@ -81,7 +83,7 @@ function Checkout() {
       };
   
       await axios.post("http://localhost:3000/api/orders", orderData);
-      alert("Order placed successfully!");
+      toast.success("Order placed successfully!");
   
       // ✅ Pass totalAmount to PayNow page
       navigate("/paynow", { state: { cart, shippingInfo, total: totalAmount } });
