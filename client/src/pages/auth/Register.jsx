@@ -18,8 +18,8 @@ function AuthRegister() {
     try {
       await signup(email, password, username);
       navigate("/verify-email");
-      
-    } catch (error) {
+      }
+       catch (error) {
       console.log(error);
     }
   };
