@@ -53,8 +53,8 @@ router.post("/create-checkout-session", async (req, res) => {
       ],
       line_items,
       mode: "payment",
-      success_url: `${process.env.CLIENT_URL}/success`,
-      cancel_url: `${process.env.CLIENT_URL}/cancel`,
+      success_url: "https://dedsv-stopnshop.onrender.com/success",
+      cancel_url: "https://dedsv-stopnshop.onrender.com/cancel",
 
       
     });
