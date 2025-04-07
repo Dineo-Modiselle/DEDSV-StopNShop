@@ -71,4 +71,4 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;https://dedsv-stopnshop-backend.onrender.com
+export default Dashboard;
