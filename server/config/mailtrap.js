@@ -1,4 +1,4 @@
-import * as Mailtrap from 'mailtrap';
+
 import { MailtrapClient } from 'mailtrap';
 import dotenv from "dotenv";
 
