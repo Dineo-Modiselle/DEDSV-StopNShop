@@ -20,7 +20,7 @@ function PayNow() {
   const applyPromoCode = async () => {
     try {
       const { data } = await axios.post(
-        "http://localhost:3000/api/promo/apply",
+        "https://dedsv-stopnshop-backend.onrender.com/api/promo/apply",
         { code: promoCode }
       );
       setDiscount(data.discount);
@@ -34,7 +34,7 @@ function PayNow() {
   const handlePayNow = async () => {
     try {
       const response = await fetch(
-        "http://localhost:3000/api/create-checkout-session",
+        "https://dedsv-stopnshop-backend.onrender.com/api/create-checkout-session",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },

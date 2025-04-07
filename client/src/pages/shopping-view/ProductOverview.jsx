@@ -11,7 +11,7 @@ function ProductOverview() {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await axios.get('http://localhost:3000/api/products');
+        const response = await axios.get('https://dedsv-stopnshop-backend.onrender.com/api/products');
         console.log('response', response);
         const sortedProducts = response.data.sort((a, b) => a.price - b.price);
         setProducts(sortedProducts);

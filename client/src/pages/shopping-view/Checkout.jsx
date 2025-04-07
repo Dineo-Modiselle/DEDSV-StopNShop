@@ -82,7 +82,7 @@ function Checkout() {
         shippingInfo: { ...shippingInfo },
       };
   
-      await axios.post("http://localhost:3000/api/orders", orderData);
+      await axios.post("https://dedsv-stopnshop-backend.onrender.com/api/orders", orderData);
       toast.success("Order placed successfully!");
   
       // ✅ Pass totalAmount to PayNow page

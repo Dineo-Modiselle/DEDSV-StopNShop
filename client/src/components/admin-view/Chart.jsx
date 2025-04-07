@@ -21,7 +21,7 @@ const Chart = () => {
     useEffect(() => {
         const fetchOrders = async () => {
             try {
-                const response = await axios.get('http://localhost:3000/api');
+                const response = await axios.get('https://dedsv-stopnshop-backend.onrender.com/api');
                 const orders = response.data;
 
                 

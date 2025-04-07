@@ -15,7 +15,7 @@ const Chatbot = () => {
     ]);
 
     try {
-      const response = await axios.post("http://localhost:3000/api/chatbot", {
+      const response = await axios.post("https://dedsv-stopnshop-backend.onrender.com/api/chatbot", {
         message: input,
       });
       setMessages((prevMessages) => [

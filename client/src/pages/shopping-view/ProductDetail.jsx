@@ -15,7 +15,7 @@ function ProductDetail() {
   useEffect(() => {
     const fetchProduct = async () => {
       try {
-        const response = await axios.get(`http://localhost:3000/api/products/${id}`);
+        const response = await axios.get(`https://dedsv-stopnshop-backend.onrender.com/api/products/${id}`);
         if (!response.data.sizes || !Array.isArray(response.data.sizes)) {
           console.error('Invalid sizes data:', response.data.sizes);
         }

@@ -22,7 +22,7 @@ function Cart() {
   const fetchRecommendations = async () => {
     try {
       const { data } = await axios.post(
-        "http://localhost:3000/api/recommendations",
+        "https://dedsv-stopnshop-backend.onrender.com/recommendations",
         { cart }
       );
       console.log("Fetched recommendations:", data);

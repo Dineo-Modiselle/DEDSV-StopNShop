@@ -12,7 +12,7 @@ const AdminOrders = () => {
         const fetchOrders = async () => {
             console.log("Fetching orders...");
             try {
-                const response = await axios.get('http://localhost:3000/api', {
+                const response = await axios.get('https://dedsv-stopnshop-backend.onrender.com/api', {
                     headers: {
                         Authorization: `Bearer ${localStorage.getItem('token')}`,
                     },
@@ -36,7 +36,7 @@ const AdminOrders = () => {
                 return;
             }
 
-            await axios.delete(`http://localhost:3000/api${orderId}`, {
+            await axios.delete(`https://dedsv-stopnshop-backend.onrender.com/api${orderId}`, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },

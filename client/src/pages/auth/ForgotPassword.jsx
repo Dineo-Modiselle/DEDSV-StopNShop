@@ -9,7 +9,7 @@ const ForgotPassword = () => {
     const handleForgotPassword = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post('http://localhost:3000/api/auth/forgot-password', { email });
+            const response = await axios.post('https://dedsv-stopnshop-backend.onrender.com/api/auth/forgot-password', { email });
             setMessage(response.data.message);
             setError('');
         } catch (err) {

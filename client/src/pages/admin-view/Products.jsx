@@ -17,7 +17,7 @@ const AdminProducts = () => {
     useEffect(() => {
         const fetchProducts = async () => {
             try {
-                const response = await axios.get('http://localhost:3000/api/products', {
+                const response = await axios.get('https://dedsv-stopnshop-backend.onrender.com/api/products', {
                     headers: {
                         Authorization: `Bearer ${localStorage.getItem('token')}`,
                     },
@@ -48,7 +48,7 @@ const AdminProducts = () => {
     const handleAddProduct = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post('http://localhost:3000/api/products', newProduct, {
+            const response = await axios.post('https://dedsv-stopnshop-backend.onrender.com/api/products', newProduct, {
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem('token')}`,
                 },
@@ -70,7 +70,7 @@ const AdminProducts = () => {
     
     const handleDeleteProduct = async (productId) => {
         try {
-            await axios.delete(`http://localhost:3000/api/products/${productId}`, {
+            await axios.delete(`https://dedsv-stopnshop-backend.onrender.com/api/products/${productId}`, {
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem('token')}`,
                 },
