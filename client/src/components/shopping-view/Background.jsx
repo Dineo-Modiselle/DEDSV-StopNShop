@@ -65,7 +65,7 @@ function Background() {
                 alt="Women Items"
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 filter group-hover:brightness-90"
               />
-              <div className="absolute inset-0 bg-black bg-opacity-20 group-hover:bg-opacity-40 transition-all duration-500 flex items-center justify-center flex-col">
+              <div className="absolute inset-0 bg-black bg-opacity-20 group-hover:bg-opacity-40 transition-all duration-500 flex items-center justify-center flex-col" onClick={() => navigate("/category/female")}>
                 <h3 className="text-white text-3xl font-light mb-6 tracking-widest transform transition-all duration-500 group-hover:-translate-y-2">
                   WOMEN
                 </h3>
@@ -91,7 +91,7 @@ function Background() {
                 alt="Men Items"
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 filter group-hover:brightness-90"
               />
-              <div className="absolute inset-0 bg-black bg-opacity-20 group-hover:bg-opacity-40 transition-all duration-500 flex items-center justify-center flex-col">
+              <div className="absolute inset-0 bg-black bg-opacity-20 group-hover:bg-opacity-40 transition-all duration-500 flex items-center justify-center flex-col"onClick={() => navigate("/category/male")}>
                 <h3 className="text-white text-3xl font-light mb-6 tracking-widest transform transition-all duration-500 group-hover:-translate-y-2">
                   MEN
                 </h3>
@@ -117,7 +117,7 @@ function Background() {
                 alt="Accessories"
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 filter group-hover:brightness-90"
               />
-              <div className="absolute inset-0 bg-black bg-opacity-20 group-hover:bg-opacity-40 transition-all duration-500 flex items-center justify-center flex-col">
+              <div className="absolute inset-0 bg-black bg-opacity-20 group-hover:bg-opacity-40 transition-all duration-500 flex items-center justify-center flex-col" onClick={() => navigate("/category/jewelery")}>
                 <h3 className="text-white text-3xl font-light mb-6 tracking-widest transform transition-all duration-500 group-hover:-translate-y-2">
                   ACCESSORIES
                 </h3>
