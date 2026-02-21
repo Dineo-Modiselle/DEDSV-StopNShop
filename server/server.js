@@ -47,6 +47,11 @@ app.use("/api", addressRoutes);
 
 app.use(errorHandler);
 
+//uptimeRobot monitor route
+javascriptapp.get('/health', (req, res) => {
+  res.json({ status: 'ok', message: 'StopNShop API is running!' })
+})
+
 // Database connection
 app.listen(PORT, () => {
   connectDB();
