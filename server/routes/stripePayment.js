@@ -14,15 +14,11 @@ router.post("/create-checkout-session", async (req, res) => {
         name: item.product,
         images: [item.image],
         description: item.description,
-        discount: item.discount,
-        
-
       },
-      unit_amount: item.price * 100,
+      unit_amount: Math.round(item.price * 100),
     },
     quantity: item.quantity,
   }));
-
 
   try {
     const session = await stripe.checkout.sessions.create({
@@ -31,7 +27,7 @@ router.post("/create-checkout-session", async (req, res) => {
         {
           shipping_rate_data: {
             type: "fixed_amount",
-            fixed_amount: { amount: 500, currency: "eur" }, // $5.00 shipping fee
+            fixed_amount: { amount: 500, currency: "eur" },
             display_name: "Standard Shipping",
             delivery_estimate: {
               minimum: { unit: "business_day", value: 5 },
@@ -42,7 +38,7 @@ router.post("/create-checkout-session", async (req, res) => {
         {
           shipping_rate_data: {
             type: "fixed_amount",
-            fixed_amount: { amount: 1500, currency: "eur" }, // $15.00 shipping fee
+            fixed_amount: { amount: 1500, currency: "eur" },
             display_name: "Express Shipping",
             delivery_estimate: {
               minimum: { unit: "business_day", value: 1 },
@@ -53,10 +49,8 @@ router.post("/create-checkout-session", async (req, res) => {
       ],
       line_items,
       mode: "payment",
-      success_url: "https://dedsv-stopnshop.onrender.com/success",
-      cancel_url: "https://dedsv-stopnshop.onrender.com/cancel",
-
-      
+      success_url: `${process.env.CLIENT_URL}/success`,
+      cancel_url: `${process.env.CLIENT_URL}/cancel`,
     });
 
     res.json({ id: session.id });
@@ -66,9 +60,4 @@ router.post("/create-checkout-session", async (req, res) => {
   }
 });
 
-//webhook events
-
 export default router;
-
-
-

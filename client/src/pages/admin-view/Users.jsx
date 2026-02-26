@@ -14,7 +14,7 @@ const AdminUsers = () => {
   const fetchUsers = async () => {
     setLoading(true);
     try {
-      const response = await axios.get("https://dedsv-stopnshop-backend.onrender.com/api/users", {
+      const response = await axios.get("http://localhost:5000/api/users", {
         headers: {
             Authorization: `Bearer ${localStorage.getItem('token')}`,
         },
@@ -44,7 +44,7 @@ const AdminUsers = () => {
     try {
       const newUser = { name, email, password, role };
       const response = await axios.post(
-        "https://dedsv-stopnshop-backend.onrender.com/api/users",
+        "http://localhost:5000/api/users",
         newUser,
         {
           headers: {
@@ -75,7 +75,7 @@ const AdminUsers = () => {
 
     setLoading(true);
     try {
-      await axios.delete(`https://dedsv-stopnshop-backend.onrender.com/api/users/${userId}`, {
+      await axios.delete(`http://localhost:5000/api/users/${userId}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

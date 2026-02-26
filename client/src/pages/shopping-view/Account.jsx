@@ -21,7 +21,7 @@ function Account() {
           return;
         }
 
-        const response = await axios.get('"https://dedsv-stopnshop-backend.onrender.com/api/account"', {
+        const response = await axios.get('"http://localhost:5000/api/account"', {
           headers: { Authorization: `Bearer ${token}` },
         });
 

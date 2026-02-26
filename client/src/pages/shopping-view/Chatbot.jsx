@@ -58,7 +58,7 @@ const Chatbot = () => {
       // Simulate API delay for demo purposes
       setTimeout(async () => {
         try {
-          const response = await fetch("https://dedsv-stopnshop-backend.onrender.com/api/chatbot", {
+          const response = await fetch("http://localhost:5000/api/chatbot", {
             method: "POST",
             headers: {
               "Content-Type": "application/json",

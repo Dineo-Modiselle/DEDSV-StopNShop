@@ -30,7 +30,7 @@ function Orders() {
         }
     
         console.log("Fetching orders...");
-        const response = await axios.get('https://dedsv-stopnshop-backend.onrender.com/api/account/orders', {
+        const response = await axios.get('http://localhost:5000/api/account/orders', {
           headers: { Authorization: `Bearer ${token}` },
         });
     

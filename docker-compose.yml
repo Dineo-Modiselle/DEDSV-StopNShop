@@ -1,0 +1,38 @@
+services:
+
+  mongo:
+    image: mongo:6
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+    restart: always
+
+  server:
+    build: ./server
+    ports:
+      - "5000:3000"
+    env_file:
+      - ./server/.env
+    depends_on:
+      - mongo
+    restart: always
+    volumes:
+      - ./server:/app
+      - /app/node_modules
+    command: npx nodemon server.js
+
+  client:
+    image: node:20
+    working_dir: /app
+    ports:
+      - "3000:5173"
+    depends_on:
+      - server
+    volumes:
+      - ./client:/app
+      - /app/node_modules
+    command: sh -c "npm install --legacy-peer-deps && npx vite --host"
+
+volumes:
+  mongo-data:

@@ -29,7 +29,21 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 // Middleware
-app.use(cors({ origin: "https://dedsv-stopnshop.onrender.com", credentials: true }));
+const allowedOrigins = [
+  "http://localhost:3000",
+  "https://dedsv-stopnshop.onrender.com"
+];
+
+app.use(cors({ 
+  origin: function(origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
+  credentials: true 
+}));
 app.use(express.json());
 app.use(cookieParser());
 app.use(bodyParser.json());
@@ -48,9 +62,9 @@ app.use("/api", addressRoutes);
 app.use(errorHandler);
 
 //uptimeRobot monitor route
-javascriptapp.get('/health', (req, res) => {
-  res.json({ status: 'ok', message: 'StopNShop API is running!' })
-})
+app.get("/health", (req, res) => {
+  res.send("Server is healthy");
+});
 
 // Database connection
 app.listen(PORT, () => {

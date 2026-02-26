@@ -12,7 +12,7 @@ function TestComp() {
 
     
     useEffect(() => {    
-        axios(`https://dedsv-stopnshop-backend.onrender.com/api/products/category/${category}‍`)
+        axios(`http://localhost:5000/api/products/category/${category}`)
             .then(res => {setProducts(res.data); console.log(res.data)})
             .catch(err=> console.error('Error:', err))
     }, [category]);

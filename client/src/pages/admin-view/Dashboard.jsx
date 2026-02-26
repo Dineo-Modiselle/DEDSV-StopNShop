@@ -15,12 +15,12 @@ const Dashboard = () => {
         
 
         const [ordersResponse, usersResponse] = await Promise.all([
-          axios.get('https://dedsv-stopnshop-backend.onrender.com/api', {
+          axios.get('http://localhost:5000/api', {
             headers: {
               Authorization: `Bearer ${localStorage.getItem('token')}`,
             },
           }),
-          axios.get('https://dedsv-stopnshop-backend.onrender.com/api/users', {
+          axios.get('http://localhost:5000/api/users', {
             headers: {
               Authorization: `Bearer ${localStorage.getItem('token')}`,
             },
