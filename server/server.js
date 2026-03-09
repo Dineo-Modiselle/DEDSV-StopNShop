@@ -30,8 +30,9 @@ const PORT = process.env.PORT || 5000;
 
 // Middleware
 const allowedOrigins = [
-  "http://localhost:3000",
-  "https://dedsv-stopnshop.onrender.com"
+ "http://localhost:3000",
+  "https://dedsv-stopnshop.onrender.com",
+  "https://dedsv-stopnshop-client.onrender.com"
 ];
 
 app.use(cors({ 
