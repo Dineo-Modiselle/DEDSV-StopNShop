@@ -35,10 +35,13 @@ import Contact from "./components/shopping-view/Contact.jsx";
 
 
 const ProtectRoutes = () => {
+  const { isAuthenticated, user, isCheckingAuth } = useAuthStore();
 
-  
-  const {isAuthenticated, user} = useAuthStore();
-  
+  if (isCheckingAuth) {
+    return <div className="flex items-center justify-center min-h-screen">
+      <p>Loading...</p>
+    </div>;
+  }
 
   if (!isAuthenticated || !user) {
     return <Navigate to="/login" replace />;
@@ -47,7 +50,7 @@ const ProtectRoutes = () => {
 };
 
 function App() {
-  const { ischeckingAuth, checkAuth, isAuthenticated, user } = useAuthStore();
+  const { isCheckingAuth, checkAuth, isAuthenticated, user } = useAuthStore();
   const location = useLocation();
   const isLandingPage = location.pathname === "/";
 
@@ -61,7 +64,7 @@ function App() {
   console.log("user:", user);
 
   // Show a loading indicator while checking authentication
-  if (ischeckingAuth) {
+  if (isCheckingAuth) {
     return <div>Loading...</div>;
   }
 console.log("hey")
@@ -71,58 +74,49 @@ console.log("hey")
       {!isLandingPage && <Navbar />}  {/* Hide Navbar on Landing Page */}
     
       <main className="flex-grow pt-16">
-        <Routes>
-          {/* Redirect admin users to the dashboard 
-          {isAuthenticated && user?.role === "admin" && (
-            <Route path="*" element={<Navigate to="/admin" replace />} />
-          )}
-*/}
-          {/* Admin Routes */}
-          <Route path="/admin" element={<ProtectRoutes roles={["admin"]}/>} >
-            <Route index element={<Dashboard />} />
-            <Route path="products" element={<AdminProducts />} />
-            <Route path="orders" element={<AdminOrders />} />
-            <Route path="users" element={<AdminUsers />} />
-          </Route>
+<Routes>
+  {/* Admin Routes */}
+  <Route path="/admin" element={<ProtectRoutes />}>
+    <Route index element={<Dashboard />} />
+    <Route path="products" element={<AdminProducts />} />
+    <Route path="orders" element={<AdminOrders />} />
+    <Route path="users" element={<AdminUsers />} />
+  </Route>
 
-          {/* Auth Routes */}
-          
-          <Route path="/login" element={<AuthLogin />} />
-          <Route path="/register" element={<AuthRegister />} />
-          <Route path="/verify-email" element={<EmailVerificationPage />} />
-          <Route path="/forgot-password" element={<ForgotPassword />} />
-          
+  {/* Auth Routes */}
+  <Route path="/login" element={<AuthLogin />} />
+  <Route path="/register" element={<AuthRegister />} />
+  <Route path="/verify-email" element={<EmailVerificationPage />} />
+  <Route path="/forgot-password" element={<ForgotPassword />} />
 
-          {/* Shopping Routes */}
-          <Route path="/" element={<LandingPage />} />
-          <Route path="/home" element={<Home />} />
-          <Route path="/account" element={<Account />} />
-          <Route path="/account/orders" element={<Orders userloggedIn={user}/>} />
-          <Route path="/checkout" element={<Checkout />} />
-          <Route path="/category/:category" element={<TestComp />} />
-          <Route path="/category/:category" element={<ProductOverview />} />
-          <Route
-            path="/category/:category/:subcategory"
-            element={<ProductOverview />}
-          />
-          <Route path="/products" element={<ProductOverview />} />
-          <Route path="/product/:id" element={<ProductDetail />} />
-          <Route path="/cart" element={<Cart />} />
-          <Route path="/success" element={<Success />} />
-          <Route path="/about" element={<AboutUs />} />
-          <Route path="/success" element={<PaymentSuccess />} />
-          <Route path="/cancel" element={<PaymentFailure />} />
-          <Route path="/privacy" element={<PrivacyTerms />} />
-          <Route path="/contact" element={<ContactUs />} />
-          <Route path="/chatbot" element={<Chatbot />} />
-          <Route path="/paynow" element={<PayNow />} />
-          <Route path="/ourstores" element={<Contact />} />
-        
+  {/* Public Routes */}
+  <Route path="/" element={<LandingPage />} />
+  <Route path="/home" element={<Home />} />
+  <Route path="/category/:category" element={<TestComp />} />
+  <Route path="/products" element={<ProductOverview />} />
+  <Route path="/product/:id" element={<ProductDetail />} />
+  <Route path="/cart" element={<Cart />} />
+  <Route path="/about" element={<AboutUs />} />
+  <Route path="/success" element={<PaymentSuccess />} />
+  <Route path="/cancel" element={<PaymentFailure />} />
+  <Route path="/privacy" element={<PrivacyTerms />} />
+  <Route path="/contact" element={<ContactUs />} />
+  <Route path="/chatbot" element={<Chatbot />} />
+  <Route path="/ourstores" element={<Contact />} />
 
-          {/* 404 Route */}
-          <Route path="*" element={<PageNotFound />} />
-        </Routes>
-        <Toaster />
+  {/* Protected Routes - must be logged in */}
+  <Route element={<ProtectRoutes />}>
+    <Route path="/account" element={<Account />} />
+    <Route path="/account/orders" element={<Orders />} />
+    <Route path="/checkout" element={<Checkout />} />
+    <Route path="/paynow" element={<PayNow />} />
+  </Route>
+
+  {/* 404 Route */}
+  <Route path="*" element={<PageNotFound />} />
+</Routes>
+
+<Toaster />
       </main>
       {!isLandingPage && <Chatbot />} {/* Hide Chatbot on Landing Page */}
       {!isLandingPage && <Footer />} {/* Hide Footer on Landing Page */}

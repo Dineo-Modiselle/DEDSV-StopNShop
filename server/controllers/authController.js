@@ -9,20 +9,24 @@ import { sendPasswordResetEmail } from "../mailtrap/emails.js";
 import { sendResetSuccessEmail } from "../mailtrap/emails.js";
 
 export const signup = async (req, res) => {
+  console.log("Signup attempt received:", req.body);
   const { name, email, password } = req.body;
   try {
     if (!name || !email || !password) {
+      console.log("Missing fields");
       throw new Error("Please fill all fields");
     }
+    console.log("Checking if user exists...");
     const userAlreadyExists = await User.findOne({ email });
     if (userAlreadyExists) {
-      return res.status(400).json({ error: "User already exists" });
+      console.log("User already exists");
+      return res.status(400).json({ success: false, message: "User already exists" });
     }
+    console.log("Hashing password...");
     const hashedPassword = await bcryptjs.hash(password, 12);
-    const verificationToken = Math.floor(
-      100000 + Math.random() * 900000
-    ).toString();
-
+    console.log("Creating verification token...");
+    const verificationToken = Math.floor(100000 + Math.random() * 900000).toString();
+    console.log("Creating user...");
     const user = new User({
       name,
       email,
@@ -30,19 +34,20 @@ export const signup = async (req, res) => {
       verificationToken,
       verificationTokenExpireAt: Date.now() + 24 * 60 * 1000,
     });
+    console.log("Saving user...");
     await user.save();
-
-    //JWT
+    console.log("Generating token...");
     generateTokenAndSetCookie(res, user._id);
-
+    console.log("Sending verification email...");
     await sendVerificationEmail(user.email, verificationToken);
-
+    console.log("Signup complete!");
     res.status(201).json({
       success: true,
       message: "User created successfully",
       user: { ...user._doc, password: undefined },
     });
   } catch (error) {
+    console.log("SIGNUP ERROR:", error.message);
     res.status(400).json({ success: false, message: error.message });
   }
 };

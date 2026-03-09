@@ -15,12 +15,12 @@ const Dashboard = () => {
         
 
         const [ordersResponse, usersResponse] = await Promise.all([
-          axios.get('http://localhost:5000/api', {
+          axios.get('/api', {
             headers: {
               Authorization: `Bearer ${localStorage.getItem('token')}`,
             },
           }),
-          axios.get('http://localhost:5000/api/users', {
+          axios.get('/api/users', {
             headers: {
               Authorization: `Bearer ${localStorage.getItem('token')}`,
             },

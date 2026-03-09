@@ -12,7 +12,7 @@ const AdminOrders = () => {
         const fetchOrders = async () => {
             console.log("Fetching orders...");
             try {
-                const response = await axios.get('http://localhost:5000/api', {
+                const response = await axios.get('/api', {
                     headers: {
                         Authorization: `Bearer ${localStorage.getItem('token')}`,
                     },
@@ -36,7 +36,7 @@ const AdminOrders = () => {
                 return;
             }
 
-            await axios.delete(`http://localhost:5000/api${orderId}`, {
+            await axios.delete(`/api${orderId}`, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },

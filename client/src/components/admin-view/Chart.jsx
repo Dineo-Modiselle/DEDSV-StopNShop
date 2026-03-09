@@ -21,7 +21,7 @@ const Chart = () => {
     useEffect(() => {
         const fetchOrders = async () => {
             try {
-                const response = await axios.get('http://localhost:5000/api');
+                const response = await axios.get('/api');
                 const orders = response.data;
 
                 
