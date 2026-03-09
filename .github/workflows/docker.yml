@@ -32,3 +32,5 @@ jobs:
           context: ./client
           push: true
           tags: dineomodiselle/dedsv_stopnshop_client:latest
+          build-args: |
+            VITE_API_URL=https://dedsv-stopnshop-server.onrender.com/api
