@@ -20,7 +20,7 @@ function PayNow() {
   const applyPromoCode = async () => {
     try {
       const { data } = await axios.post(
-        "/api/promo/apply",
+        `${import.meta.env.VITE_API_URL}/promo/apply`,
         { code: promoCode }
       );
       setDiscount(data.discount);
@@ -34,14 +34,13 @@ function PayNow() {
   const handlePayNow = async () => {
     try {
       const response = await fetch(
-        "/api/create-checkout-session",
+        `${import.meta.env.VITE_API_URL}/create-checkout-session`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ cart, total: finalTotal, discount }), // Include discount
+          body: JSON.stringify({ cart, total: finalTotal, discount }),
         }
       );
-
       if (!response.ok) {
         const errorData = await response
           .json()
