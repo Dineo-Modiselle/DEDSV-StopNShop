@@ -3,11 +3,16 @@ import { useCart } from "../../context/CartContext";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import toast from "react-hot-toast";
+import { useAuthStore } from '../../store/authStore.js';
+
+
 
 
 function Checkout() {
   const { cart, getCartTotal } = useCart();
   const navigate = useNavigate();
+  const { user, isAuthenticated } = useAuthStore();
+
   
   const [shippingInfo, setShippingInfo] = useState({
     address: "",
@@ -26,13 +31,12 @@ function Checkout() {
   const [showSummary, setShowSummary] = useState(false);
   
   useEffect(() => {
-    const storedUser = JSON.parse(localStorage.getItem("user") || "null");
-    if (!storedUser) {
-      navigate("/checkout");
+    if (!isAuthenticated) {
+      navigate("/login");
     } else {
-      setCustomer({ name: storedUser.name, email: storedUser.email });
+      setCustomer({ name: user.name, email: user.email });
     }
-  }, [navigate]);
+  }, [isAuthenticated, navigate]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -82,7 +86,11 @@ function Checkout() {
         shippingInfo: { ...shippingInfo },
       };
   
-      await axios.post("/api/orders", orderData);
+      const token = localStorage.getItem('token');
+      await axios.post("/api/orders", orderData, {
+        headers: token ? { Authorization: `Bearer ${token}` } : {},
+        withCredentials: true,
+      });
       toast.success("Order placed successfully!");
   
       // ✅ Pass totalAmount to PayNow page
