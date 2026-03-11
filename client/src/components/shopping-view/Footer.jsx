@@ -1,44 +1,44 @@
 
 import { FaFacebook, FaXTwitter, FaInstagram, FaLinkedinIn } from 'react-icons/fa6';
 
-
-
-function Footer  ()  {
+function Footer() {
   return (
-    <footer className=" text-gray-900 py-4">
+    <footer className="text-gray-900 py-6 px-4">
       <div className="container mx-auto text-center">
-       <div className="mb-8">
-          <a href="/home" className="mx-4 hover:text-gray-600">Home</a>
-          <a href="/about" className="mx-4 hover:text-gray-600">About</a>
-          <a href="/contact" className="mx-4 hover:text-gray-600">Contact</a>
-          <a href="/privacy" className="mx-4 hover:text-gray-600">Privacy Policy</a>
-          <a href="/ourstores" className="mx-4 hover:text-gray-600">Our Stores</a>
-
+        
+        {/* Navigation Links */}
+        <div className="mb-6 flex flex-wrap justify-center gap-3">
+          <a href="/home" className="hover:text-gray-600 text-sm">Home</a>
+          <a href="/about" className="hover:text-gray-600 text-sm">About</a>
+          <a href="/contact" className="hover:text-gray-600 text-sm">Contact</a>
+          <a href="/privacy" className="hover:text-gray-600 text-sm">Privacy Policy</a>
+          <a href="/ourstores" className="hover:text-gray-600 text-sm">Our Stores</a>
         </div>
-        <div className="mb-4 flex justify-center">
-          <a href="https://facebook.com" className="mx-2" aria-label="Facebook">
+
+        {/* Social Icons */}
+        <div className="mb-4 flex justify-center gap-4">
+          <a href="https://facebook.com" aria-label="Facebook" className="hover:text-gray-600 text-lg">
             <FaFacebook />
           </a>
-          <a href="https://twitter.com" className="mx-2" aria-label="Twitter">
+          <a href="https://twitter.com" aria-label="Twitter" className="hover:text-gray-600 text-lg">
             <FaXTwitter />
           </a>
-          <a href="https://instagram.com" className="mx-2" aria-label="Instagram">
+          <a href="https://instagram.com" aria-label="Instagram" className="hover:text-gray-600 text-lg">
             <FaInstagram />
           </a>
-          <a href="https://linkedin.com" className="mx-2" aria-label="LinkedIn">
+          <a href="https://linkedin.com" aria-label="LinkedIn" className="hover:text-gray-600 text-lg">
             <FaLinkedinIn />
           </a>
         </div>
-        <div>
-          <p className="text-[#181A1B] text-sm">© {new Date().getFullYear()} DEDSV. All rights reserved.</p>
-        </div>
-      </div>
 
-      
+        {/* Copyright */}
+        <p className="text-[#181A1B] text-sm">
+          © {new Date().getFullYear()} DEDSV. All rights reserved.
+        </p>
+
+      </div>
     </footer>
   );
-};
-
+}
 
 export default Footer;
-
