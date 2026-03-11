@@ -28,10 +28,7 @@ export const useAuthStore = create((set) => ({
     set({ isLoading: true, error: null });
     try {
       const response = await axios.post(`${API_URL}/login`, { email, password });
-      console.log("ALL HEADERS:", response.headers);
-      console.log("TOKEN:", response.headers['x-auth-token']);
-      console.log("TOKEN2:", response.headers['X-Auth-Token']);
-      const token = response.headers['x-auth-token'] || response.headers['X-Auth-Token'];
+      const token = response.data.token;
       if (token) localStorage.setItem('token', token);
       set({ user: response.data.user, isAuthenticated: true, isLoading: false });
     } catch (error) {
