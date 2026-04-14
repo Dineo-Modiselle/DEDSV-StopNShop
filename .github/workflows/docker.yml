@@ -34,3 +34,11 @@ jobs:
           tags: dineomodiselle/dedsv_stopnshop_client:latest
           build-args: |
             VITE_API_URL=https://dedsv-stopnshop-server.onrender.com/api
+
+      - name: Deploy Server to Render
+        run: |
+          curl "${{ secrets.RENDER_SERVER_DEPLOY_HOOK }}"
+
+      - name: Deploy Client to Render
+        run: |
+          curl "${{ secrets.RENDER_CLIENT_DEPLOY_HOOK }}"
