@@ -1,61 +1,19 @@
-import { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
-import axios from 'axios';
-import { useCart } from '../../context/CartContext';
+import { useParams } from 'react-router-dom';
+import { useProductData } from '../../hooks/useProductData';
 
+/**
+ * Product detail page — layout and markup only; data and actions come from {@link useProductData}.
+ */
 function ProductDetail() {
   const { id } = useParams();
-  const navigate = useNavigate();
-  const { addToCart } = useCart();
-  const [product, setProduct] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-  const [selectedSize, setSelectedSize] = useState('');
-
-  useEffect(() => {
-    const fetchProduct = async () => {
-      try {
-        const response = await axios.get(`/api/products/${id}`);
-        if (!response.data.sizes || !Array.isArray(response.data.sizes)) {
-          console.error('Invalid sizes data:', response.data.sizes);
-        }
-
-        setProduct(response.data);
-      } catch (error) {
-        console.error('Error fetching product:', error);
-        setError('Product not found');
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchProduct();
-  }, [id]);
-
-  const handleSizeChange = (e) => {
-    setSelectedSize(e.target.value);
-  };
-
-  const handleAddToCart = () => {
-    if (!selectedSize) {
-      alert('Please select a size');
-      return;
-    }
-
-    const sizeInfo = product.sizes.find(s => s.size === selectedSize);
-    if (!sizeInfo || sizeInfo.countInStock === 0) {
-      alert('Selected size is out of stock');
-      return;
-    }
-
-    addToCart({
-      ...product,
-      selectedSize,
-      quantity: 1
-    });
-
-    navigate('/cart');
-  };
+  const {
+    product,
+    loading,
+    error,
+    selectedSize,
+    handleSizeChange,
+    handleAddToCart,
+  } = useProductData(id);
 
   if (loading) return <div>Loading...</div>;
   if (error) return <div>{error}</div>;
@@ -112,11 +70,12 @@ function ProductDetail() {
           <div className="text-gray-700 text-sm mb-4">{product.description}</div>
 
           <button
+            type="button"
             onClick={handleAddToCart}
             disabled={!selectedSize}
             className={`w-full py-2 px-4 rounded ${!selectedSize
-                ? 'bg-gray-300 cursor-not-allowed'
-                : 'bg-black text-white hover:bg-gray-800'
+              ? 'bg-gray-300 cursor-not-allowed'
+              : 'bg-black text-white hover:bg-gray-800'
               }`}
           >
             {!selectedSize ? 'SELECT SIZE' : 'ADD TO CART'}
