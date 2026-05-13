@@ -102,10 +102,12 @@ export const login = async (req, res) => {
       message: "User logged in successfully",
       token,
       user: {
+        _id: user._id,
         id: user._id,
         name: user.name,
         email: user.email,
         role: user.role,
+        isVerified: user.isVerified,
         lastLogin: user.lastLogin,
       },
     });
