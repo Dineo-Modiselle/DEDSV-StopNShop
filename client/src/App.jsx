@@ -27,6 +27,7 @@ import Chatbot from "./pages/shopping-view/Chatbot";
 import ContactUs from "./pages/shopping-view/ContactUs";
 import PayNow from "./pages/shopping-view/PayNow";
 import ForgotPassword from "./pages/auth/ForgotPassword";
+import ResetPassword from "./pages/auth/ResetPassword";
 import LandingPage from "./components/shopping-view/LandingPage.jsx";
 import Contact from "./components/shopping-view/Contact.jsx";
 import CategoryProducts from "./pages/shopping-view/CategoryProducts.jsx";
@@ -78,6 +79,7 @@ function App() {
           <Route path="/register" element={<AuthRegister />} />
           <Route path="/verify-email" element={<EmailVerificationPage />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="/reset-password/:token" element={<ResetPassword />} />
 
           <Route path="/" element={<LandingPage />} />
           <Route path="/home" element={<Home />} />
