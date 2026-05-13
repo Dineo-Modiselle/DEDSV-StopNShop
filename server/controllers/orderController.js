@@ -2,14 +2,18 @@ import Order from "../models/Order.js";
 import { v4 as uuidv4 } from "uuid";
 import jwt from "jsonwebtoken";
 import { sendOrderConfirmation } from "../mailtrap/emails.js";
+import { resolveCartFromOrderBody } from "../services/cartPricingService.js";
+import { AppError } from "../utils/AppError.js";
 
 export const createOrder = async (req, res) => {
   try {
-    const { customerName, email, items, totalAmount, shippingInfo } = req.body;
+    const { customerName, email, shippingInfo } = req.body;
 
-    if (!customerName || !email || !items || !totalAmount || !shippingInfo) {
+    if (!customerName || !email || !shippingInfo) {
       return res.status(400).json({ message: "Missing required order fields" });
     }
+
+    const { subtotal, orderItems } = await resolveCartFromOrderBody(req.body);
 
     let userId;
     const authHeader = req.headers.authorization;
@@ -27,18 +31,21 @@ export const createOrder = async (req, res) => {
       orderId: uuidv4(),
       customerName,
       email,
-      items,
-      totalAmount,
+      items: orderItems,
+      totalAmount: subtotal,
       shippingAddress: shippingInfo,
       ...(userId ? { userId } : {}),
     });
 
     await newOrder.save();
 
-    await sendOrderConfirmation(email, items, totalAmount);
+    await sendOrderConfirmation(email, orderItems);
     console.log("Order created successfully");
     res.status(201).json({ message: "Order created successfully", order: newOrder});
   } catch (error) {
+    if (error instanceof AppError) {
+      return res.status(error.statusCode).json({ message: error.message });
+    }
     console.error("Error creating order:", error);
     res.status(500).json({ message: "Internal Server Error" });
   }
