@@ -12,6 +12,7 @@ import { useCart } from '../context/CartContext';
  *   product: object | null,
  *   loading: boolean,
  *   error: string | null,
+ *   notFound: boolean,
  *   selectedSize: string,
  *   handleSizeChange: (e: import('react').ChangeEvent<HTMLSelectElement>) => void,
  *   handleAddToCart: () => void,
@@ -23,12 +24,14 @@ export function useProductData(productId) {
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [notFound, setNotFound] = useState(false);
   const [selectedSize, setSelectedSize] = useState('');
 
   useEffect(() => {
     if (!productId) {
       setLoading(false);
-      setError('Product not found');
+      setNotFound(true);
+      setError(null);
       setProduct(null);
       return;
     }
@@ -36,6 +39,7 @@ export function useProductData(productId) {
     let cancelled = false;
     setLoading(true);
     setError(null);
+    setNotFound(false);
     setSelectedSize('');
 
     const fetchProduct = async () => {
@@ -43,16 +47,38 @@ export function useProductData(productId) {
         const response = await axios.get(`/api/products/${productId}`);
         if (cancelled) return;
 
-        if (!response.data.sizes || !Array.isArray(response.data.sizes)) {
-          console.error('Invalid sizes data:', response.data.sizes);
+        const data = response.data;
+        if (!data || typeof data !== 'object') {
+          setProduct(null);
+          setNotFound(true);
+          setError(null);
+          return;
         }
-        setProduct(response.data);
+
+        if (!data.sizes || !Array.isArray(data.sizes)) {
+          console.error('Invalid sizes data:', data.sizes);
+        }
+        setProduct(data);
+        setNotFound(false);
+        setError(null);
       } catch (err) {
         console.error('Error fetching product:', err);
-        if (!cancelled) {
-          setError('Product not found');
+        if (cancelled) return;
+
+        if (axios.isAxiosError(err) && err.response?.status === 404) {
+          setNotFound(true);
+          setError(null);
           setProduct(null);
+          return;
         }
+
+        setNotFound(false);
+        const message =
+          axios.isAxiosError(err) && err.response?.data?.error
+            ? String(err.response.data.error)
+            : 'Unable to load this product. Please try again later.';
+        setError(message);
+        setProduct(null);
       } finally {
         if (!cancelled) {
           setLoading(false);
@@ -97,6 +123,7 @@ export function useProductData(productId) {
     product,
     loading,
     error,
+    notFound,
     selectedSize,
     handleSizeChange,
     handleAddToCart,
