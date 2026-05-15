@@ -26,3 +26,8 @@ server/.env
 *.njsproj
 *.sln
 *.sw?
+terraform/.terraform/
+terraform/terraform.tfstate
+terraform/terraform.tfstate.backup
+terraform/terraform.tfvars
+k8s/secrets.yaml
